@@ -4,6 +4,7 @@ from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
+from selenium.common import exceptions as ex
 
 path_header = "/html/body/app-root/app-header/header/div"
 path_explore = "/app-root/div/main/app-explore/div[2]"
@@ -19,19 +20,6 @@ def init():
 
 init()
 
-def try_click(xpath):
-    try:
-        driver.find_element(By.XPATH, xpath).click()
-    except Exception as e:
-        print(f"error : {e}")
-
-def try_send_keys(xpath, keys=''):
-    try:
-        driver.find_element(By.XPATH, xpath).send_keys(keys)
-    except Exception as e:
-        print(f"error : {e}")
-
-
 def open_AppEEARS(delay = 3):
     print(" - opening AppEARS")
     driver.maximize_window()
@@ -41,41 +29,61 @@ def open_AppEEARS(delay = 3):
 
 def login_with_cred (user, pwd, delay = 2):
     xpath = f"{path_header}/div/ul[2]/li/a"
-    try_click(xpath)
+    driver.find_element(By.XPATH, xpath).click()
     time.sleep(delay)
     try:
         driver.find_element(By.ID, "username").send_keys(user)
         driver.find_element(By.ID, "password").send_keys(pwd)
         driver.find_element(By.NAME, "commit").click()
-    except:
-        print("could not login in with provided credentials")
-    time.sleep(delay)
-    print(" - logged in to AppEARS")
+        time.sleep(delay)
+        print(" - logged in to AppEARS")
+    except ex.NoSuchElementException:
+        print(" - unable to login\n - user may not be on login page")
+    except Exception as e:
+        print(f" - error : {e}")
 
 def go_to_extract_area(delay = 2):
-    time.sleep(delay)
-    xpath = '//*[@id="navbarSupportedContent"]/ul[1]/li[1]/a'
-    try_click(xpath)
-    time.sleep(delay)
-    xpath = f"{path_header}/div/ul[1]/li[1]/div/a[1]"
-    try_click(xpath)
-    time.sleep(delay)
-    xpath = '/html/body/app-root/div/main/app-task/div[2]/div/div/div/div[1]/div[2]/a/img'
-    try_click(xpath)
-    time.sleep(delay)
+    try:
+        time.sleep(delay)
+        xpath = '//*[@id="navbarSupportedContent"]/ul[1]/li[1]/a'
+        driver.find_element(By.XPATH, xpath).click()
+        time.sleep(delay)
+        xpath = f"{path_header}/div/ul[1]/li[1]/div/a[1]"
+        driver.find_element(By.XPATH, xpath).click()
+        time.sleep(delay)
+        xpath = '/html/body/app-root/div/main/app-task/div[2]/div/div/div/div[1]/div[2]/a/img'
+        driver.find_element(By.XPATH, xpath).click()
+        time.sleep(delay)
+    except ex.NoSuchElementException:
+        print(" - unable to got to extract area\n - user may not be logged in")
+    except Exception as e:
+        print(f" - error : {e}")
 
 def add_product (product, product_num = 1, delay = 2):
-    driver.find_element(By.ID, "product").send_keys((product))
-    time.sleep(delay)
-    xpath = "//button[@class='dropdown-item active ng-star-inserted']"
-    try_click(xpath)
-    time.sleep(delay)
-    product_path = f'//*[@id="top"]/app-root/div/main/app-task/div[2]/form/div[2]/div/app-area-selector/div/div[3]/div[1]/div[2]/div[{product_num+1}]'    
-    try_click(product_path)
-    time.sleep(delay)
-    xpath = '//*[@id="top"]/app-root/div/main/app-task/div[2]/form/div[2]/div/app-area-selector/div/div[3]/div[1]/div[1]/app-product-selector/span/span/div[1]'
-    try_click(xpath)
-    time.sleep(delay)
+    try:
+        driver.find_element(By.ID, "product").send_keys((product))
+        time.sleep(delay)
+    except ex.NoSuchElementException:
+        print(" - unable to find product text\n - user may not be on extract area page")
+    except Exception as e:
+        print(f" - error : {e}")
+    try:
+        xpath = "//button[@class='dropdown-item active ng-star-inserted']"
+        driver.find_element(By.XPATH, xpath).click()
+        time.sleep(delay)
+        product_path = f'//*[@id="top"]/app-root/div/main/app-task/div[2]/form/div[2]/div/app-area-selector/div/div[3]/div[1]/div[2]/div[{product_num+1}]'    
+        driver.find_element(By.XPATH, product_path).click()    
+        time.sleep(delay)
+    except ex.NoSuchElementException:
+        print(" - unable to find product\n - user may not have entered a valid product")
+    except Exception as e:
+        print(f" - error : {e}")
+    try:
+        xpath = '//*[@id="top"]/app-root/div/main/app-task/div[2]/form/div[2]/div/app-area-selector/div/div[3]/div[1]/div[1]/app-product-selector/span/span/div[1]'
+        driver.find_element(By.XPATH, xpath).click()
+        time.sleep(delay)
+    except:
+        print("unable to remove product\n - a product may not have been added")
 
 def enter_dates_from_list(years_list, delay = 2):
     driver.find_element(By.ID, "startDate").send_keys(years_list[0])
@@ -117,17 +125,17 @@ def clear(element_ID, delay = 2):
 def go_to_explore(delay = 3):
     time.sleep(delay)
     xpath = '//*[@id="navbarSupportedContent"]/ul[1]/li[2]/a'
-    try_click(xpath)
+    driver.find_element(By.XPATH, xpath).click()
     time.sleep(delay)
 
 def prev(delay = 2):
     xpath = f'//*[@id="top"]{path_explore}/table/thead/tr[1]/td/app-pagination-control/div/ul/li[1]/a'
-    try_click(xpath)
+    driver.find_element(By.XPATH, xpath).click()
     time.sleep(delay)
 
 def page(page_number, delay = 2):
     xpath = f'//*[@id="top"]{path_explore}/table/thead/tr[1]/td/app-pagination-control/div/ul/li[{page_number+1}]/a'
-    try_click(xpath)
+    driver.find_element(By.XPATH, xpath).click()
     time.sleep(delay)
 
 def next(delay = 2):
@@ -140,7 +148,7 @@ def next(delay = 2):
         except:
             page -= 1
             xpath = xpath = f'//*[@id="top"]{path_explore}/table/thead/tr[1]/td/app-pagination-control/div/ul/li[{page}]/a'
-            try_click(xpath)
+            driver.find_element(By.XPATH, xpath).click()
             time.sleep(delay)
             break
         page+=1
@@ -155,7 +163,7 @@ def last(delay = 2):
         except:
             page -= 2
             xpath = f'//*[@id="top"]{path_explore}/table/thead/tr[1]/td/app-pagination-control/div/ul/li[{page}]/a'
-            try_click(xpath)
+            driver.find_element(By.XPATH, xpath).click()
             time.sleep(delay)
             break
         page+=1
