@@ -216,3 +216,5 @@ def get_all_requests(delay=2):
         next()
     return names_by_page
 
+def get_element_by_xpath(xpath):
+    return driver.find_element(By.XPATH, xpath)
