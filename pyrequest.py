@@ -18,7 +18,7 @@ def init():
 
 init()
 
-def open_AppEEARS(delay = 3):
+def open_AppEARS(delay = 3):
     print(" - opening AppEARS")
     driver.maximize_window()
     driver.get("https://appeears.earthdatacloud.nasa.gov")
