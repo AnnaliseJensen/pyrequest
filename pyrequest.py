@@ -29,9 +29,12 @@ def login_with_cred (user, pwd, delay = 2):
     xpath = f"{path_header}/div/ul[2]/li/a"
     driver.find_element(By.XPATH, xpath).click()
     time.sleep(delay)
-    driver.find_element(By.ID, "username").send_keys(user)
-    driver.find_element(By.ID, "password").send_keys(pwd)
-    driver.find_element(By.NAME, "commit").click()
+    try:
+        driver.find_element(By.ID, "username").send_keys(user)
+        driver.find_element(By.ID, "password").send_keys(pwd)
+        driver.find_element(By.NAME, "commit").click()
+    except:
+        print("could not login in with provided credentials")
     time.sleep(delay)
     print(" - logged in to AppEARS")
 
