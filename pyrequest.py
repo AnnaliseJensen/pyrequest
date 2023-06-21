@@ -31,6 +31,11 @@ def login_with_cred (user, pwd, delay = 2):
     try:
         xpath = f"{path_header}/div/ul[2]/li/a"
         driver.find_element(By.XPATH, xpath).click()
+    except ex.NoSuchElementException:
+        print(" - unable to find login button\n - will attempt to login without it")
+    except Exception as e:
+        print(f" - error : {e}")
+    try:
         time.sleep(delay)
         driver.find_element(By.ID, "username").send_keys(user)
         driver.find_element(By.ID, "password").send_keys(pwd)
@@ -83,7 +88,7 @@ def add_product (product, product_num = 1, delay = 2):
         driver.find_element(By.XPATH, xpath).click()
         time.sleep(delay)
     except:
-        print("unable to remove product\n - a product may not have been added")
+        print(" - unable to remove product\n - a product may not have been added")
 
 def enter_dates_from_list(years_list, delay = 2):
     driver.find_element(By.ID, "startDate").send_keys(years_list[0])
