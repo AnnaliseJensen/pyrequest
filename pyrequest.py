@@ -1,4 +1,5 @@
 import time
+import selenium
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
@@ -19,7 +20,19 @@ def init():
 init()
 
 def try_click(xpath):
-    driver.find_element(By.XPATH, xpath).click()
+    try:
+        driver.find_element(By.XPATH, xpath).click()
+    except  selenium.NoSuchElementException:
+        print("Could not find Element")
+    except Exception as e:
+        print(f"error : {e}")
+
+def try_send_keys(xpath):
+    try:
+        driver.find_element(By.XPATH, xpath).click()
+    except Exception as e:
+        print(f"error : {e}")
+
 
 def open_AppEEARS(delay = 3):
     print(" - opening AppEARS")
@@ -30,7 +43,7 @@ def open_AppEEARS(delay = 3):
 
 def login_with_cred (user, pwd, delay = 2):
     xpath = f"{path_header}/div/ul[2]/li/a"
-    driver.find_element(By.XPATH, xpath).click()
+    try_click(xpath)
     time.sleep(delay)
     try:
         driver.find_element(By.ID, "username").send_keys(user)
@@ -44,29 +57,26 @@ def login_with_cred (user, pwd, delay = 2):
 def go_to_extract_area(delay = 2):
     time.sleep(delay)
     xpath = '//*[@id="navbarSupportedContent"]/ul[1]/li[1]/a'
-    driver.find_element(By.XPATH, xpath).click()
+    try_click(xpath)
     time.sleep(delay)
     xpath = f"{path_header}/div/ul[1]/li[1]/div/a[1]"
-    driver.find_element(By.XPATH, xpath).click()
+    try_click(xpath)
     time.sleep(delay)
     xpath = '//*[@id="navbarSupportedContent"]/ul[1]/li[2]/a'
-    driver.find_element(By.XPATH, xpath).click()
+    try_click(xpath)
     time.sleep(delay)
 
 def add_product (product, product_num = 1, delay = 2):
     driver.find_element(By.ID, "product").send_keys((product))
     time.sleep(delay)
     xpath = "//button[@class='dropdown-item active ng-star-inserted']"
-    button = driver.find_element(By.XPATH, (xpath))
-    button.click()
+    try_click(xpath)
     time.sleep(delay)
     product_path = f'//*[@id="top"]/app-root/div/main/app-task/div[2]/form/div[2]/div/app-area-selector/div/div[3]/div[1]/div[2]/div[{product_num+1}]'    
-    button = driver.find_element(By.XPATH, (product_path))
-    button.click()
+    try_click(product_path)
     time.sleep(delay)
     xpath = '//*[@id="top"]/app-root/div/main/app-task/div[2]/form/div[2]/div/app-area-selector/div/div[3]/div[1]/div[1]/app-product-selector/span/span/div[1]'
-    button = driver.find_element(By.XPATH, (xpath))
-    button.click()
+    try_click(xpath)
     time.sleep(delay)
 
 def enter_dates_from_list(years_list, delay = 2):
@@ -109,17 +119,17 @@ def clear(element_ID, delay = 2):
 def go_to_explore(delay = 3):
     time.sleep(delay)
     xpath = '//*[@id="navbarSupportedContent"]/ul[1]/li[2]/a'
-    driver.find_element(By.XPATH, xpath).click()
+    try_click(xpath)
     time.sleep(delay)
 
 def prev(delay = 2):
     xpath = f'//*[@id="top"]{path_explore}/table/thead/tr[1]/td/app-pagination-control/div/ul/li[1]/a'
-    driver.find_element(By.XPATH, xpath).click()
+    try_click(xpath)
     time.sleep(delay)
 
 def page(page_number, delay = 2):
     xpath = f'//*[@id="top"]{path_explore}/table/thead/tr[1]/td/app-pagination-control/div/ul/li[{page_number+1}]/a'
-    driver.find_element(By.XPATH, xpath).click()
+    try_click(xpath)
     time.sleep(delay)
 
 def next(delay = 2):
@@ -132,7 +142,7 @@ def next(delay = 2):
         except:
             page -= 1
             xpath = xpath = f'//*[@id="top"]{path_explore}/table/thead/tr[1]/td/app-pagination-control/div/ul/li[{page}]/a'
-            driver.find_element(By.XPATH, xpath).click()
+            try_click(xpath)
             time.sleep(delay)
             break
         page+=1
@@ -147,7 +157,7 @@ def last(delay = 2):
         except:
             page -= 2
             xpath = f'//*[@id="top"]{path_explore}/table/thead/tr[1]/td/app-pagination-control/div/ul/li[{page}]/a'
-            driver.find_element(By.XPATH, xpath).click()
+            try_click(xpath)
             time.sleep(delay)
             break
         page+=1
