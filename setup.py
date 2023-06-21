@@ -2,6 +2,6 @@ from setuptools import setup
 
 setup(
     name='pyrequest',
-    version='1.0',
+    version='0.1',
     scripts=['pyrequest.py'],
 )
