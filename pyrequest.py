@@ -18,6 +18,9 @@ def init():
 
 init()
 
+def try_click(xpath):
+    driver.find_element(By.XPATH, xpath).click()
+
 def open_AppEEARS(delay = 3):
     print(" - opening AppEARS")
     driver.maximize_window()
