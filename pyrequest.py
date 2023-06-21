@@ -10,7 +10,7 @@ path_explore = "/app-root/div/main/app-explore/div[2]"
 def vars():
     global driver
 
-ser = Service(r"C:\chromedriver.exe")
+ser = Service(r"C:/chromedriver.exe")
 op = webdriver.ChromeOptions()
 driver = webdriver.Chrome(service=ser, options=op)
 
