@@ -31,7 +31,7 @@ def login_with_cred (user, pwd, delay = 2):
     time.sleep(delay)
     print(" - logged in to AppEARS")
 
-def got_to_extract(delay = 2):
+def go_to_extract_area(delay = 2):
     time.sleep(delay)
     xpath = '//*[@id="navbarSupportedContent"]/ul[1]/li[1]/a'
     driver.find_element(By.XPATH, xpath).click()
