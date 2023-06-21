@@ -216,5 +216,11 @@ def get_all_requests(delay=2):
         next()
     return names_by_page
 
-def get_element_by_xpath(xpath):
-    return driver.find_element(By.XPATH, xpath)
+def element_by_xpath(xpath,action=0, text=""):
+    if action == 0:
+        return driver.find_element(By.XPATH, xpath)
+    if action == 1:
+        driver.find_element(By.XPATH, xpath).click()
+    if action == 2:
+        driver.find_element(By.XPATH, xpath).send_keys(text)
+    
