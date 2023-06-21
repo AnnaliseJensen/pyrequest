@@ -7,12 +7,16 @@ from selenium.webdriver.common.keys import Keys
 path_header = "/html/body/app-root/app-header/header/div"
 path_explore = "/app-root/div/main/app-explore/div[2]"
 
-def vars():
+def init():
+    global ser
+    global op
     global driver
 
-ser = Service(r"C:/chromedriver.exe")
-op = webdriver.ChromeOptions()
-driver = webdriver.Chrome(service=ser, options=op)
+    ser = Service(r"C:/chromedriver.exe")
+    op = webdriver.ChromeOptions()
+    driver = webdriver.Chrome(service=ser, options=op)
+
+init()
 
 def open_AppEEARS(delay = 3):
     print(" - opening AppEARS")
