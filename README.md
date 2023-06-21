@@ -1,2 +1,3 @@
 # pyrequest
-Python module utilizing selenium to assist with automation programs utilizing NASA AppEARS satalite data requests.
+#### by Annalise Jensen
+[View Wiki](https://github.com/Benjamin-E-Jensen/pyrequest/wiki)
