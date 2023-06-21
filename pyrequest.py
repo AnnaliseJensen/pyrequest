@@ -27,9 +27,11 @@ def try_click(xpath):
     except Exception as e:
         print(f"error : {e}")
 
-def try_send_keys(xpath):
+def try_send_keys(xpath, keys=''):
     try:
-        driver.find_element(By.XPATH, xpath).click()
+        driver.find_element(By.XPATH, xpath).send_keys(keys)
+    except  selenium.NoSuchElementException:
+        print("Could not find Element")
     except Exception as e:
         print(f"error : {e}")
 
@@ -62,7 +64,7 @@ def go_to_extract_area(delay = 2):
     xpath = f"{path_header}/div/ul[1]/li[1]/div/a[1]"
     try_click(xpath)
     time.sleep(delay)
-    xpath = '//*[@id="navbarSupportedContent"]/ul[1]/li[2]/a'
+    xpath = '/html/body/app-root/div/main/app-task/div[2]/div/div/div/div[1]/div[2]/a/img'
     try_click(xpath)
     time.sleep(delay)
 
