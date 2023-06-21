@@ -22,16 +22,12 @@ init()
 def try_click(xpath):
     try:
         driver.find_element(By.XPATH, xpath).click()
-    except  selenium.NoSuchElementException:
-        print("Could not find Element")
     except Exception as e:
         print(f"error : {e}")
 
 def try_send_keys(xpath, keys=''):
     try:
         driver.find_element(By.XPATH, xpath).send_keys(keys)
-    except  selenium.NoSuchElementException:
-        print("Could not find Element")
     except Exception as e:
         print(f"error : {e}")
 
