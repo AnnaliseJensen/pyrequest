@@ -36,6 +36,7 @@ def login_with_cred (user, pwd, delay = 2):
     except Exception as e:
         print(f" - error : {type(e)}")
     try:
+        print(" - logging in to AppEARS")
         time.sleep(delay)
         driver.find_element(By.ID, "username").send_keys(user)
         driver.find_element(By.ID, "password").send_keys(pwd)
@@ -138,17 +139,20 @@ def add_file(filepath, delay = 2):
     except ex.NoSuchElementException:
         print(" - unable to find dates\n -- user may be on extract area page")
     except ex.InvalidArgumentException:
-        print(f" - could not find file {filepath}\n -- this file may not exist in current working directory")
+        print(f" - could not find file '{filepath}'\n -- this file may not exist in current or given working directory")
     except Exception as e:
         print(f" - error : {type(e)}")
 
 def submit(delay = 15):
-    text = driver.find_element(By.ID, "taskName")
-    text.send_keys(Keys.ENTER)
-    time.sleep(delay)
-    clear("taskName")
-    clear("startDate")
-    clear("endDate")
+    try:
+        text = driver.find_element(By.ID, "taskName")
+        text.send_keys(Keys.ENTER)
+        time.sleep(delay)
+        clear("taskName")
+        clear("startDate")
+        clear("endDate")
+    except Exception as e:
+        print(f" - error : {type(e)}")
 
 def clear(element_ID, delay = 2):
     driver.find_element(By.ID, element_ID).clear()
