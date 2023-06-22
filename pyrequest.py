@@ -151,12 +151,19 @@ def submit(delay = 15):
         clear("taskName")
         clear("startDate")
         clear("endDate")
+    except ex.NoSuchElementException:
+        print(" - unable to sumbit\n -- user may be on extract area page")
     except Exception as e:
         print(f" - error : {type(e)}")
 
 def clear(element_ID, delay = 2):
-    driver.find_element(By.ID, element_ID).clear()
-    time.sleep(delay)
+    try:
+        driver.find_element(By.ID, element_ID).clear()
+        time.sleep(delay)
+    except ex.NoSuchElementException:
+        print(" - unable to sumbit\n -- user may be on extract area page")
+    except Exception as e:
+        print(f" - error : {type(e)}")
 
 def go_to_explore(delay = 3):
     time.sleep(delay)
@@ -236,7 +243,6 @@ def get_row_names(p = 0, delay = 0):
 
     return row_names
 
-
 def contents_row(row = 1, delay = 0):
 
     xpath = f'/html/body{path_explore}/table/tbody/tr[{row}]/td[7]/a[2]/i'
@@ -267,7 +273,6 @@ def get_num_of_pages (delay = 2):
             print(f" - found {page-1} pages")
             return page -1
         page +=1
-
 
 def get_all_requests(delay=2):
     page(1)
