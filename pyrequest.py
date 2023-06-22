@@ -137,6 +137,8 @@ def add_file(filepath, delay = 2):
         time.sleep(delay)
     except ex.NoSuchElementException:
         print(" - unable to find dates\n -- user may be on extract area page")
+    except FileNotFoundError:
+        print(" - could not find file\n -- this file may not exist in current working directory")
     except Exception as e:
         print(f" - error : {e}")
 
