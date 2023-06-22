@@ -140,7 +140,7 @@ def add_file(filepath, delay = 2):
     except FileNotFoundError:
         print(" - could not find file\n -- this file may not exist in current working directory")
     except Exception as e:
-        print(f" - error : {e}")
+        print(f" - error : {type(e)}")
 
 def submit(delay = 15):
     text = driver.find_element(By.ID, "taskName")
