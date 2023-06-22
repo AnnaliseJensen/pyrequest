@@ -274,7 +274,7 @@ def get_num_of_pages (delay = 2):
             return page -1
         page +=1
 
-def get_all_requests(delay=2):
+def get_all_requests (delay=2):
     page(1)
     pages = get_num_of_pages(delay)
     names_by_page = []
@@ -283,4 +283,8 @@ def get_all_requests(delay=2):
         next()
     return names_by_page
 
-    
+def delete_request__by_row (row = 1, delay = 0):
+    xpath = f'/html/body{path_explore}/table/tbody/tr[{row}]/td[7]/a[2]/i'
+    button = driver.find_element(By.XPATH, xpath)
+    button.click()
+    time.sleep(delay)
