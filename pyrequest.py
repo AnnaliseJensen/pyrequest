@@ -285,9 +285,11 @@ def get_all_requests (delay=2):
 
 def delete_request__by_row (row = 1, delay = 0):
     try:
-        xpath = f'/html/body/app-root/div/main/app-explore/div[2]/table/tbody/tr[{row}]/td[7]/app-task-delete-confirm/span/a/'
+        xpath = f'//*[@id="top"]/app-root/div/main/app-explore/div[2]/table/tbody/tr[{row}]/td[7]/app-task-delete-confirm/span/a'
         driver.find_element(By.XPATH, xpath).click()
-        xpath = f'/html/body/app-root/div/main/app-explore/div[2]/table/tbody/tr[{row}]/td[7]/app-task-delete-confirm/span/a[2]/'
+        time.sleep(delay)
+        xpath = f'//*[@id="top"]/app-root/div/main/app-explore/div[2]/table/tbody/tr[{row}]/td[7]/app-task-delete-confirm/span/a[2]'
         driver.find_element(By.XPATH, xpath).click()
+        time.sleep(delay)
     except Exception as e:
         print(f" - error : {type(e)}")
