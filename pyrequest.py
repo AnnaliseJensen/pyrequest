@@ -34,7 +34,7 @@ def login_with_cred (user, pwd, delay = 2):
     except ex.NoSuchElementException:
         print(" - unable to find login button\n -- will attempt to login")
     except Exception as e:
-        print(f" - error : {e}")
+        print(f" - error : {type(e)}")
     try:
         time.sleep(delay)
         driver.find_element(By.ID, "username").send_keys(user)
@@ -45,7 +45,7 @@ def login_with_cred (user, pwd, delay = 2):
     except ex.NoSuchElementException:
         print(" - unable to login\n -- user may not be on login page")
     except Exception as e:
-        print(f" - error : {e}")
+        print(f" - error : {type(e)}")
 
 def go_to_extract_area(delay = 5):
     try:
@@ -62,7 +62,7 @@ def go_to_extract_area(delay = 5):
     except ex.NoSuchElementException:
         print(" - unable to go to extract area\n -- user may not be logged in")
     except Exception as e:
-        print(f" - error : {e}")
+        print(f" - error : {type(e)}")
 
 def add_product (product, product_num = 1, delay = 2):
     try:
@@ -71,7 +71,7 @@ def add_product (product, product_num = 1, delay = 2):
     except ex.NoSuchElementException:
         print(" - unable to find product text\n -- user may not be on extract area page")
     except Exception as e:
-        print(f" - error : {e}")
+        print(f" - error : {type(e)}")
     try:
         xpath = "//button[@class='dropdown-item active ng-star-inserted']"
         driver.find_element(By.XPATH, xpath).click()
@@ -82,7 +82,7 @@ def add_product (product, product_num = 1, delay = 2):
     except ex.NoSuchElementException:
         print(" - unable to find product\n -- user may not have entered a valid product")
     except Exception as e:
-        print(f" - error : {e}")
+        print(f" - error : {type(e)}")
     try:
         xpath = '//*[@id="top"]/app-root/div/main/app-task/div[2]/form/div[2]/div/app-area-selector/div/div[3]/div[1]/div[1]/app-product-selector/span/span/div[1]'
         driver.find_element(By.XPATH, xpath).click()
@@ -99,7 +99,7 @@ def enter_dates_from_list(years_list, delay = 2):
     except ex.NoSuchElementException:
         print(" - unable to find dates\n -- user may be on extract area page")
     except Exception as e:
-        print(f" - error : {e}")
+        print(f" - error : {type(e)}")
 
 def add_projection (projection_num = 0, delay = 2):
     try:
@@ -109,7 +109,7 @@ def add_projection (projection_num = 0, delay = 2):
     except ex.NoSuchElementException:
         print(" - unable to find projection\n -- user may be on extract area page")
     except Exception as e:
-        print(f" - error : {e}")
+        print(f" - error : {type(e)}")
     try:
         xpath = f'//*[@id="ngb-typeahead-1-{projection_num}"]'
         #xpath = f'/html/body/app-root/div/main/app-task/div[2]/form/div[2]/div/app-area-selector/div/div[4]/div/div/div/div[3]/div[2]/app-projection-selector/ngb-typeahead-window/button[{projection_num}]'
@@ -119,7 +119,7 @@ def add_projection (projection_num = 0, delay = 2):
     except ex.NoSuchElementException:
         print(" - unable to find projection\n -- user may have entered invalid projection")
     except Exception as e:
-        print(f" - error : {e}")  
+        print(f" - error : {type(e)}")  
 
 def add_area_sample_name(name, delay = 2):
     try:
@@ -128,7 +128,7 @@ def add_area_sample_name(name, delay = 2):
     except ex.NoSuchElementException:
         print(" - unable to sample name\n -- user may be on extract area page")
     except Exception as e:
-        print(f" - error : {e}")
+        print(f" - error : {type(e)}")
 
 def add_file(filepath, delay = 2):
     try:
@@ -137,7 +137,7 @@ def add_file(filepath, delay = 2):
         time.sleep(delay)
     except ex.NoSuchElementException:
         print(" - unable to find dates\n -- user may be on extract area page")
-    except FileNotFoundError:
+    except ex.InvalidArgumentException:
         print(" - could not find file\n -- this file may not exist in current working directory")
     except Exception as e:
         print(f" - error : {type(e)}")
