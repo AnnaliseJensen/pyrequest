@@ -32,7 +32,7 @@ def login_with_cred (user, pwd, delay = 2):
         xpath = f"{path_header}/div/ul[2]/li/a"
         driver.find_element(By.XPATH, xpath).click()
     except ex.NoSuchElementException:
-        print(" - unable to find login button\n - will attempt to login without it")
+        print(" - unable to find login button\n -- will attempt to login")
     except Exception as e:
         print(f" - error : {e}")
     try:
@@ -43,7 +43,7 @@ def login_with_cred (user, pwd, delay = 2):
         time.sleep(delay)
         print(" - logged in to AppEARS")
     except ex.NoSuchElementException:
-        print(" - unable to login\n - user may not be on login page")
+        print(" - unable to login\n -- user may not be on login page")
     except Exception as e:
         print(f" - error : {e}")
 
@@ -60,7 +60,7 @@ def go_to_extract_area(delay = 2):
         driver.find_element(By.XPATH, xpath).click()
         time.sleep(delay)
     except ex.NoSuchElementException:
-        print(" - unable to got to extract area\n - user may not be logged in")
+        print(" - unable to go to extract area\n -- user may not be logged in")
     except Exception as e:
         print(f" - error : {e}")
 
@@ -69,7 +69,7 @@ def add_product (product, product_num = 1, delay = 2):
         driver.find_element(By.ID, "product").send_keys((product))
         time.sleep(delay)
     except ex.NoSuchElementException:
-        print(" - unable to find product text\n - user may not be on extract area page")
+        print(" - unable to find product text\n -- user may not be on extract area page")
     except Exception as e:
         print(f" - error : {e}")
     try:
@@ -80,7 +80,7 @@ def add_product (product, product_num = 1, delay = 2):
         driver.find_element(By.XPATH, product_path).click()    
         time.sleep(delay)
     except ex.NoSuchElementException:
-        print(" - unable to find product\n - user may not have entered a valid product")
+        print(" - unable to find product\n -- user may not have entered a valid product")
     except Exception as e:
         print(f" - error : {e}")
     try:
@@ -88,7 +88,7 @@ def add_product (product, product_num = 1, delay = 2):
         driver.find_element(By.XPATH, xpath).click()
         time.sleep(delay)
     except:
-        print(" - unable to remove product\n - a product may not have been added")
+        print(" - unable to remove product\n -- a product may not have been added")
 
 def enter_dates_from_list(years_list, delay = 2):
     driver.find_element(By.ID, "startDate").send_keys(years_list[0])
