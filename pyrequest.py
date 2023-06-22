@@ -47,7 +47,7 @@ def login_with_cred (user, pwd, delay = 2):
     except Exception as e:
         print(f" - error : {e}")
 
-def go_to_extract_area(delay = 2):
+def go_to_extract_area(delay = 5):
     try:
         time.sleep(delay)
         xpath = '//*[@id="navbarSupportedContent"]/ul[1]/li[1]/a'
@@ -91,29 +91,54 @@ def add_product (product, product_num = 1, delay = 2):
         print(" - unable to remove product\n -- a product may not have been added")
 
 def enter_dates_from_list(years_list, delay = 2):
-    driver.find_element(By.ID, "startDate").send_keys(years_list[0])
-    time.sleep(delay)
-    driver.find_element(By.ID, "endDate").send_keys(years_list[1])
-    time.sleep(delay)
+    try:
+        driver.find_element(By.ID, "startDate").send_keys(years_list[0])
+        time.sleep(delay)
+        driver.find_element(By.ID, "endDate").send_keys(years_list[1])
+        time.sleep(delay)
+    except ex.NoSuchElementException:
+        print(" - unable to find dates\n -- user may be on extract area page")
+    except Exception as e:
+        print(f" - error : {e}")
 
 def add_projection (projection_num = 0, delay = 2):
-    projection = driver.find_element(By.ID, "projection")
-    projection.click()
-    time.sleep(delay)
-    xpath = f'//*[@id="ngb-typeahead-1-{projection_num}"]'
-    #xpath = f'/html/body/app-root/div/main/app-task/div[2]/form/div[2]/div/app-area-selector/div/div[4]/div/div/div/div[3]/div[2]/app-projection-selector/ngb-typeahead-window/button[{projection_num}]'
-    projection_dropdown = driver.find_element(By.XPATH, xpath)
-    projection_dropdown.click()
-    time.sleep(delay)   
+    try:
+        projection = driver.find_element(By.ID, "projection")
+        projection.click()
+        time.sleep(delay)
+    except ex.NoSuchElementException:
+        print(" - unable to find projection\n -- user may be on extract area page")
+    except Exception as e:
+        print(f" - error : {e}")
+    try:
+        xpath = f'//*[@id="ngb-typeahead-1-{projection_num}"]'
+        #xpath = f'/html/body/app-root/div/main/app-task/div[2]/form/div[2]/div/app-area-selector/div/div[4]/div/div/div/div[3]/div[2]/app-projection-selector/ngb-typeahead-window/button[{projection_num}]'
+        projection_dropdown = driver.find_element(By.XPATH, xpath)
+        projection_dropdown.click()
+        time.sleep(delay) 
+    except ex.NoSuchElementException:
+        print(" - unable to find projection\n -- user may have entered invalid projection")
+    except Exception as e:
+        print(f" - error : {e}")  
 
 def add_area_sample_name(name, delay = 2):
-    driver.find_element(By.ID, "taskName").send_keys(name)
-    time.sleep(delay)
+    try:
+        driver.find_element(By.ID, "taskName").send_keys(name)
+        time.sleep(delay)
+    except ex.NoSuchElementException:
+        print(" - unable to sample name\n -- user may be on extract area page")
+    except Exception as e:
+        print(f" - error : {e}")
 
 def add_file(filepath, delay = 2):
-    file = driver.find_element(By.ID, "shapeFileUpload")
-    file.send_keys(filepath)
-    time.sleep(delay)
+    try:
+        file = driver.find_element(By.ID, "shapeFileUpload")
+        file.send_keys(filepath)
+        time.sleep(delay)
+    except ex.NoSuchElementException:
+        print(" - unable to find dates\n -- user may be on extract area page")
+    except Exception as e:
+        print(f" - error : {e}")
 
 def submit(delay = 15):
     text = driver.find_element(By.ID, "taskName")
