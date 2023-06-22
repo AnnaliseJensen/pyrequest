@@ -284,7 +284,10 @@ def get_all_requests (delay=2):
     return names_by_page
 
 def delete_request__by_row (row = 1, delay = 0):
-    xpath = f'/html/body{path_explore}/table/tbody/tr[{row}]/td[7]/a[2]/i'
-    button = driver.find_element(By.XPATH, xpath)
-    button.click()
-    time.sleep(delay)
+    try:
+        xpath = f'/html/body/app-root/div/main/app-explore/div[2]/table/tbody/tr[{row}]/td[7]/app-task-delete-confirm/span/a/'
+        driver.find_element(By.XPATH, xpath).click()
+        xpath = f'/html/body/app-root/div/main/app-explore/div[2]/table/tbody/tr[{row}]/td[7]/app-task-delete-confirm/span/a[2]/'
+        driver.find_element(By.XPATH, xpath).click()
+    except Exception as e:
+        print(f" - error : {type(e)}")
