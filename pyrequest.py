@@ -243,14 +243,14 @@ def get_row_names(p = 0, delay = 0):
 
     return row_names
 
-def contents_row(row = 1, delay = 0):
+def download_area_sample_row(row = 1, delay = 0):
 
     xpath = f'/html/body{path_explore}/table/tbody/tr[{row}]/td[7]/a[2]/i'
     button = driver.find_element(By.XPATH, xpath)
     button.click()
     time.sleep(delay)
 
-def contents_name_in_dictionary(dict, name, index = 0, delay = 0):
+def download_area_sample_name_in_dictionary(dict, name, index = 0, delay = 0):
     row = dict[name]
     if type(row) is not list:
         row = list(row)
