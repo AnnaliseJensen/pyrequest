@@ -300,15 +300,28 @@ def get_num_supporting_files (delay = 0):
         xpath = f'/html/body/app-root/div/main/app-download-task/div[2]/div/div[2]/table/tbody/tr[{items}]/td[1]/a'
         try:
             button = driver.find_element(By.XPATH, xpath)
+            time.sleep(delay)
             items+=1  
         except:
             return items
         
-def get_all_supporting_files (delay = 2):
-    items = get_num_supporting_files()
+def get_all_supporting_files (delay = 0):
+    items = get_num_supporting_files(delay)
     files = {}
     for i in range (1,items):
         xpath = f'/html/body/app-root/div/main/app-download-task/div[2]/div/div[2]/table/tbody/tr[{i}]/td[1]/a'
         text = driver.find_element(By.XPATH, xpath).text
+        time.sleep(delay)
         files[text] = i
     return files
+
+def download_supporting_file_row (row, delay = 6):
+    xpath = f'/html/body/app-root/div/main/app-download-task/div[2]/div/div[2]/table/tbody/tr[{row}]/td[1]/a'
+    driver.find_element(By.XPATH, xpath).click()
+    time.sleep(delay)
+
+def download_supporting_file_name_in_dictionary (dict, name, delay = 6):
+    row = dict[name]
+    xpath = f'/html/body/app-root/div/main/app-download-task/div[2]/div/div[2]/table/tbody/tr[{row}]/td[1]/a'
+    driver.find_element(By.XPATH, xpath).click()
+    time.sleep(delay)
