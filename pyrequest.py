@@ -283,7 +283,7 @@ def get_all_requests (delay=2):
         next()
     return names_by_page
 
-def delete_request__by_row (row = 1, delay = 0):
+def delete_request_by_row (row = 1, delay = 0):
     try:
         xpath = f'//*[@id="top"]/app-root/div/main/app-explore/div[2]/table/tbody/tr[{row}]/td[7]/app-task-delete-confirm/span/a'
         driver.find_element(By.XPATH, xpath).click()
@@ -293,3 +293,22 @@ def delete_request__by_row (row = 1, delay = 0):
         time.sleep(delay)
     except Exception as e:
         print(f" - error : {type(e)}")
+
+def get_num_supporting_files (delay = 0):
+    items = 1
+    while True:
+        xpath = f'/html/body/app-root/div/main/app-download-task/div[2]/div/div[2]/table/tbody/tr[{items}]/td[1]/a'
+        try:
+            button = driver.find_element(By.XPATH, xpath)
+            items+=1  
+        except:
+            return items
+        
+def get_all_supporting_files (delay = 2):
+    items = get_num_supporting_files()
+    files = {}
+    for i in range (1,items):
+        xpath = f'/html/body/app-root/div/main/app-download-task/div[2]/div/div[2]/table/tbody/tr[{i}]/td[1]/a'
+        text = driver.find_element(By.XPATH, xpath).text
+        files[text] = i
+    return files
