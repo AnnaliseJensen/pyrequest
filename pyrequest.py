@@ -27,6 +27,16 @@ def open_AppEEARS(delay = 3):
     time.sleep(delay)
     print(" - opened AppEARS")
 
+def close_AppEEARS():
+    print(" - closing AppEEARS")
+    driver.close()
+    print(" - closed AppEEARS")
+
+def quit_AppEEARS():
+    print(" - closing all AppEEARS windows")
+    driver.quit()
+    print(" - closed all AppEEARS windows")
+
 def login_with_cred (user, pwd, delay = 2):
     try:
         xpath = f"{path_header}/div/ul[2]/li/a"
