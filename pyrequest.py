@@ -16,7 +16,7 @@ def init():
 
     ser = Service(r"C:/chromedriver.exe")
     op = webdriver.ChromeOptions()
-    driver = webdriver.ChromiumEdge(service=ser, options=op)
+    driver = webdriver.Chrome(service=ser, options=op)
 
 init()
 
