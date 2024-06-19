@@ -221,7 +221,7 @@ def last(delay = 2):
             break
         page+=1
 
-def get_num_of_rows(delay = 0):
+def get_num_of_rows(delay = 2):
     i=1
     while True:
         xpath = f'/html/body{path_explore}/table/tbody/tr[{i}]/td[7]/a[2]/i'
@@ -234,7 +234,7 @@ def get_num_of_rows(delay = 0):
             return i-1
         i+=1
 
-def get_row_names(p = 0, delay = 0):
+def get_row_names(p = 0, delay = 2):
     if p!=0:
         page(p)
     row_names = {}
@@ -253,14 +253,14 @@ def get_row_names(p = 0, delay = 0):
 
     return row_names
 
-def download_area_sample_row(row = 1, delay = 0):
+def download_area_sample_row(row = 1, delay = 2):
 
     xpath = f'/html/body{path_explore}/table/tbody/tr[{row}]/td[7]/a[2]/i'
     button = driver.find_element(By.XPATH, xpath)
     button.click()
     time.sleep(delay)
 
-def download_area_sample_name_in_dictionary(dict, name, index = 0, delay = 0):
+def download_area_sample_name_in_dictionary(dict, name, index = 0, delay = 2):
     row = dict[name]
     if type(row) is not list:
         row = list(row)
@@ -293,7 +293,7 @@ def get_all_requests (delay=2):
         next()
     return names_by_page
 
-def delete_request_by_row (row = 1, delay = 0):
+def delete_request_by_row (row = 1, delay = 2):
     try:
         xpath = f'//*[@id="top"]/app-root/div/main/app-explore/div[2]/table/tbody/tr[{row}]/td[7]/app-task-delete-confirm/span/a'
         driver.find_element(By.XPATH, xpath).click()
@@ -304,7 +304,7 @@ def delete_request_by_row (row = 1, delay = 0):
     except Exception as e:
         print(f" - error : {type(e)}")
 
-def get_num_supporting_files (delay = 0):
+def get_num_supporting_files (delay = 2):
     items = 1
     while True:
         xpath = f'/html/body/app-root/div/main/app-download-task/div[2]/div/div[2]/table/tbody/tr[{items}]/td[1]/a'
@@ -315,7 +315,7 @@ def get_num_supporting_files (delay = 0):
         except:
             return items
         
-def get_all_supporting_files (delay = 0):
+def get_all_supporting_files (delay = 2):
     items = get_num_supporting_files(delay)
     files = {}
     for i in range (1,items):
